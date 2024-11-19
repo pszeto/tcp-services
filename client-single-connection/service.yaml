@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: tcp-client
+  name: tcp-client-single-conn
   namespace: tcp
 spec:
   selector:
-    app: tcp-client
+    app: tcp-client-single-conn
   ports:
   - protocol: TCP
     port: 8000

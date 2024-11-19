@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tcp-client-single-conn
+  namespace: tcp
+  labels:
+    app: tcp-client-single-conn
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tcp-client-single-conn
+  template:
+    metadata:
+      labels:
+        app: tcp-client-single-conn
+    spec:
+      containers:  
+      - name: tcp-client-single-conn
+        image: docker.io/pszeto/tcp-client-single-conn
+        imagePullPolicy: Always
+        env:
+        - name: INTERVAL
+          value: "60"
+        - name: UPSTREAM_ADDRESS
+          value: "tcp-server.tcp.svc.cluster.local:8000"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+      - image: docker.io/pszeto/hey
+        imagePullPolicy: Always
+        name: hey    

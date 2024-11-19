@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tcp-client
+  name: tcp-client-remake-conn
   namespace: tcp
   labels:
-    app: tcp-client
+    app: tcp-client-remake-conn
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tcp-client
+      app: tcp-client-remake-conn
   template:
     metadata:
       labels:
-        app: tcp-client
+        app: tcp-client-remake-conn
     spec:
       containers:  
-      - name: tcp-client
-        image: docker.io/pszeto/tcp-client
+      - name: tcp-client-remake-conn
+        image: docker.io/pszeto/tcp-client-remake-conn
         imagePullPolicy: Always
         env:
         - name: INTERVAL

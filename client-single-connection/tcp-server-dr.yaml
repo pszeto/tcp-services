@@ -1,0 +1,11 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: tcp-dr
+  namespace: tcp
+spec:
+  host: tcp-server.tcp.svc.cluster.local
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        idleTimeout: 15s
