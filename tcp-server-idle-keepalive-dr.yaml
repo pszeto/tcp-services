@@ -10,5 +10,5 @@ spec:
       tcp:
         idleTimeout: 30s
         tcpKeepalive:
-          time: 20s
-          interval: 15s
+          time: 10s
+          interval: 5s
