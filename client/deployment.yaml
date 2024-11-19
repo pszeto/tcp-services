@@ -15,10 +15,7 @@ spec:
       labels:
         app: tcp-client
     spec:
-      containers:
-      - image: docker.io/pszeto/hey
-        imagePullPolicy: Always
-        name: hey      
+      containers:  
       - name: tcp-client
         image: docker.io/pszeto/tcp-client
         imagePullPolicy: Always
@@ -37,4 +34,6 @@ spec:
             fieldRef:
               apiVersion: v1
               fieldPath: metadata.namespace
-
+      - image: docker.io/pszeto/hey
+        imagePullPolicy: Always
+        name: hey    
