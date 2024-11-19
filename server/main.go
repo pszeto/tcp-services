@@ -24,7 +24,7 @@ func main() {
 	// Close the listener when the application closes.
 	defer ln.Close()
 	if err != nil {
-		log.Println(err)
+		log.Println("Error starting listener:", err)
 		return
 	}
 
@@ -32,7 +32,7 @@ func main() {
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
-			log.Println(err)
+			log.Println("Error accepting incoming connections:", err)
 			continue
 		}
 
@@ -50,7 +50,7 @@ func handleConnection(conn net.Conn) {
 		buf := make([]byte, 1024)
 		_, err := conn.Read(buf)
 		if err != nil {
-			log.Println(err)
+			log.Println("Error reading incoming data:", err)
 			return
 		}
 

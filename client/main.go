@@ -43,14 +43,15 @@ func main() {
 	// Connect to the server
 	conn, err := net.Dial("tcp", serverAddress)
 	if err != nil {
-		log.Println(err)
+		log.Println("Error connecting to: ", serverAddress)
+		log.Println("Error:", err)
 		return
 	}
 
 	// Enable keepalives
 	if tcpConn, ok := conn.(*net.TCPConn); ok {
 		tcpConn.SetKeepAlive(true)
-		// keep alove
+		// keep alive
 		tcpConn.SetKeepAlivePeriod(600 * time.Second)
 	}
 
@@ -60,17 +61,16 @@ func main() {
 		log.Println("Sending Message : ", msg)
 		_, err = conn.Write([]byte(msg))
 		if err != nil {
-			log.Println(err)
-			return
+			log.Println("Error Sending Message:", err)
 		}
 		// Receive a response from the server
 		reply := make([]byte, 1024)
 		_, err = conn.Read(reply)
 		if err != nil {
 			log.Println("Error reading:", err)
-			os.Exit(1)
+		} else {
+			log.Println("Server response:", string(reply))
 		}
-		log.Println("Server response:", string(reply))
 		timer(intervalAsNum)
 	}
 }
