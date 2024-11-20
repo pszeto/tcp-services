@@ -8,5 +8,12 @@ spec:
     app: tcp-server
   ports:
   - protocol: TCP
+    name: tcp-8000
+    appProtocol: TCP
     port: 8000
     targetPort: 8000
+  - protocol: TCP
+    name: tcp-5000
+    appProtocol: TCP
+    port: 5000
+    targetPort: 5000

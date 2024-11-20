@@ -1,11 +1,11 @@
 apiVersion: networking.istio.io/v1
 kind: DestinationRule
 metadata:
-  name: tcp-idle-timeout-dr
+  name: python-server-idle-timeout-dr
   namespace: tcp
 spec:
-  host: tcp-server.tcp.svc.cluster.local
+  host: python-tcp-server.tcp.svc.cluster.local
   trafficPolicy:
     connectionPool:
       tcp:
-        idleTimeout: 218s
+        idleTimeout: 90s

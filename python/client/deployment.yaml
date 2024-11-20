@@ -1,27 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tcp-server
+  name: python-tcp-client
   namespace: tcp
   labels:
-    app: tcp-server
+    app: python-tcp-client
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tcp-server
+      app: python-tcp-client
   template:
     metadata:
       labels:
-        app: tcp-server
+        app: python-tcp-client
     spec:
       containers:
-      - name: tcp-server
-        image: docker.io/pszeto/tcp-server
+      - name: python-tcp-client
+        image: docker.io/pszeto/python-tcp-client:v13
         imagePullPolicy: Always
         env:
-        - name: PORT
-          value: "8000"
+        - name: UPSTREAM_HOST
+          value: "python-tcp-server.tcp.svc.cluster.local"
+        - name: UPSTREAM_PORT
+          value: "5000"
         - name: LISTEN_ADDRESS
           value: "127.0.0.1"
         - name: POD_NAME
@@ -35,4 +37,4 @@ spec:
               apiVersion: v1
               fieldPath: metadata.namespace
         ports:
-        - containerPort: 8000
+        - containerPort: 5000

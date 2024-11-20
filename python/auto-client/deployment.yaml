@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-tcp-auto-client
+  namespace: tcp
+  labels:
+    app: python-tcp-auto-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-tcp-auto-client
+  template:
+    metadata:
+      labels:
+        app: python-tcp-auto-client
+    spec:
+      containers:
+      - name: python-tcp-auto-client
+        image: docker.io/pszeto/python-tcp-auto-client:v13
+        imagePullPolicy: Always
+        env:
+        - name: UPSTREAM_HOST
+          value: "python-tcp-server.tcp.svc.cluster.local"
+        - name: UPSTREAM_PORT
+          value: "5000"
+        - name: SLEEP_INTERVAL
+          value: "60"
+        - name: LISTEN_ADDRESS
+          value: "127.0.0.1"
+        - name: PYTHONUNBUFFERED
+          value: "1"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        ports:
+        - containerPort: 5000

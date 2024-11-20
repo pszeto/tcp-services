@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: python-tcp-server
+  namespace: tcp
+spec:
+  selector:
+    app: python-tcp-server
+  ports:
+  - protocol: TCP
+    name: tcp-5000
+    appProtocol: TCP
+    port: 5000
+    targetPort: 5000

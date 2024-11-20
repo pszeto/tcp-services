@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tcp-server
+  namespace: tcp
+  labels:
+    app: tcp-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tcp-server
+  template:
+    metadata:
+      labels:
+        app: tcp-server
+    spec:
+      containers:
+      - name: tcp-server
+        image: docker.io/pszeto/tcp-server
+        imagePullPolicy: Always
+        env:
+        - name: PORT
+          value: "8000"
+        - name: PYTHON_PORT
+          value: "5000"
+        - name: LISTEN_ADDRESS
+          value: "127.0.0.1"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        ports:
+        - containerPort: 5000
+        - containerPort: 8000

@@ -1,11 +1,13 @@
 apiVersion: networking.istio.io/v1
 kind: DestinationRule
 metadata:
-  name: tcp-idle-timeout-dr
+  name: tcp-idle-keepalive-dr
   namespace: tcp
 spec:
   host: tcp-server.tcp.svc.cluster.local
   trafficPolicy:
     connectionPool:
       tcp:
-        idleTimeout: 218s
+        tcpKeepalive:
+          time: 10s
+          interval: 5s
